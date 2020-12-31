@@ -1,5 +1,6 @@
 ﻿using FileSystemExplorer.Web.Configuration;
 using FileSystemExplorer.Web.Explorer;
+using FileSystemExplorer.Web.Explorer.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,7 +25,7 @@ namespace FileSystemExplorer.Web.Controllers
 
 
         [HttpGet] 
-        public List<string> GetDirectory(string id, string directory = null)
+        public List<Item> GetDirectory(string id, string directory = null)
         {
             manager = new FileSystemExplorerManager(fileSystemConfiguration.GetConfigurationById(id));
             manager.SetRelativeDirectory(directory);
@@ -32,7 +33,7 @@ namespace FileSystemExplorer.Web.Controllers
         }
 
         [HttpGet]
-        public List<string> GetFiles(string id, string directory = null)
+        public List<Item> GetFiles(string id, string directory = null)
         {
             manager = new FileSystemExplorerManager(fileSystemConfiguration.GetConfigurationById(id));
             manager.SetRelativeDirectory(directory);

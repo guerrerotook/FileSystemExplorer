@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FileSystemExplorer.Web.Pages
 {
-    public class ExploreModel : PageModel
+    public class OtherModel : PageModel
     {
         private readonly ILogger<ExploreModel> _logger;
         private ConfigurationItem currentConfiguration;
@@ -19,7 +19,7 @@ namespace FileSystemExplorer.Web.Pages
 
         public IQueryable<Item> Items { get; set; }
 
-        public ExploreModel(ILogger<ExploreModel> logger, FileSystemConfiguration fileSystemConfiguration)
+        public OtherModel(ILogger<ExploreModel> logger, FileSystemConfiguration fileSystemConfiguration)
         {
             this.fileSystemConfiguration = fileSystemConfiguration;
 

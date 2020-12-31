@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSystemExplorer.Web", "FileSystemExplorer.Web\FileSystemExplorer.Web.csproj", "{DF820A5A-35C9-4845-BA5B-7423DBB3B909}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileSystemExplorer.WebTests", "FileSystemExplorer.WebTests\FileSystemExplorer.WebTests.csproj", "{8084696A-E0D9-4497-AE69-D516114B9714}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileSystemExplorer.WebTests", "FileSystemExplorer.WebTests\FileSystemExplorer.WebTests.csproj", "{8084696A-E0D9-4497-AE69-D516114B9714}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

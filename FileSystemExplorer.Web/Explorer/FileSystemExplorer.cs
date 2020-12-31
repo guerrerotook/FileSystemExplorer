@@ -1,12 +1,13 @@
-﻿using FileSystemExplorer.Web.Configuration;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FileSystemExplorer.Web.Explorer
+﻿namespace FileSystemExplorer.Web.Explorer
 {
+    using FileSystemExplorer.Web.Configuration;
+    using FileSystemExplorer.Web.Explorer.Model;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public class FileSystemExplorerManager
     {
         private ConfigurationItem configuration;
@@ -31,7 +32,7 @@ namespace FileSystemExplorer.Web.Explorer
         public void SetRelativeDirectory(string value)
         {
             if (!string.IsNullOrEmpty(value))
-            {                
+            {
                 string temporalPath = Path.Combine(currentPath, value);
                 temporalPath = Path.GetFullPath(temporalPath);
                 if (temporalPath.ToLowerInvariant().StartsWith(configuration.Path.ToLowerInvariant()))
@@ -43,17 +44,43 @@ namespace FileSystemExplorer.Web.Explorer
             }
         }
 
-        public List<string> GetSubdirectories()
+        public List<Item> GetSubdirectories()
         {
-            List<string> result = new List<string>();
-            result.AddRange(Directory.GetDirectories(currentPath));
+            List<Item> result = new List<Item>();
+            result.AddRange(ConvertPathToItems(Directory.GetDirectories(currentPath)));
             return result;
         }
 
-        public List<string> GetFiles()
+        public List<Item> GetFiles()
         {
-            List<string> result = new List<string>();
-            result.AddRange(Directory.GetFiles(currentPath));
+            List<Item> result = new List<Item>();
+            result.AddRange(ConvertPathToItems(Directory.GetFiles(currentPath)));
+            return result;
+        }
+
+        private List<Item> ConvertPathToItems(IEnumerable<string> paths)
+        {
+            List<Item> result = new List<Item>();
+
+            if (paths != null && paths.Count() > 0)
+            {
+                foreach (var path in paths)
+                {
+                    FileInfo info = new FileInfo(path);
+                    Item item = new Item()
+                    {
+                        Path = path,
+                        Created = info.CreationTime,
+                        Name = Path.GetFileName(path),
+                        LastTimeUpdated = info.LastWriteTime,
+                        Source = configuration,
+                        ItemType = ItemType.File
+                        
+                    };
+                    result.Add(item);
+                }
+            }
+
             return result;
         }
     }

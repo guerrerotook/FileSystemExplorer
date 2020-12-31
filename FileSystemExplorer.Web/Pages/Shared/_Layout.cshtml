@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - File System Explorer</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/mvc-grid/mvc-grid.css" rel="stylesheet">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -33,6 +34,10 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+        <script src="~/js/mvc-grid/mvc-grid.js"></script>
+        <script>
+            document.querySelectorAll(".mvc-grid").forEach(element => new MvcGrid(element));
+        </script>
     </div>
 
     <footer class="border-top footer text-muted">
