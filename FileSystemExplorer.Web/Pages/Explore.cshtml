@@ -6,7 +6,7 @@
 
 <div class="text-center">
     <h1 class="display-4">@Model.CurrentConfiguration.Name</h1>
-    @*@(Html
+    @(Html
         .Grid(Model.Items)
         .Build(columns =>
         {
@@ -22,5 +22,5 @@
         .Empty("No data found")
         .Filterable()
         .Sortable()
-        .Pageable())*@
+        .Pageable())
 </div>
