@@ -31,7 +31,7 @@ namespace FileSystemExplorer.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddControllers();
             services.AddSingleton<FileSystemConfiguration>();
             services.AddSwaggerGen(c =>
@@ -47,6 +47,7 @@ namespace FileSystemExplorer.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                
             }
             else
             {
@@ -55,6 +56,7 @@ namespace FileSystemExplorer.Web
                 app.UseHsts();
             }
 
+            app.UseBrowserLink();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

@@ -34,10 +34,7 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-        <script src="~/js/mvc-grid/mvc-grid.js"></script>
-        <script>
-            document.querySelectorAll(".mvc-grid").forEach(element => new MvcGrid(element));
-        </script>
+
     </div>
 
     <footer class="border-top footer text-muted">
@@ -49,6 +46,10 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/mvc-grid/mvc-grid.js"></script>
+    <script>
+        document.querySelectorAll(".mvc-grid").forEach(element => new MvcGrid(element));
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

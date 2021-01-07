@@ -1,4 +1,5 @@
 ﻿@page
+@using NonFactors.Mvc.Grid;
 @model ExploreModel
 @{
     ViewData["Title"] = "Explorer file system";
@@ -6,21 +7,48 @@
 
 <div class="text-center">
     <h1 class="display-4">@Model.CurrentConfiguration.Name</h1>
+    <h2>List of files on this File System</h2>
+
     @(Html
         .Grid(Model.Items)
         .Build(columns =>
         {
             columns.Add(model => model.Name).Titled("Name");
-            columns.Add(model => model.Created).Titled("Created");
-            columns.Add(model => model.ItemType).Titled("Item Type");
-
-            columns.Add(model => model.LastTimeUpdated).Titled("Last time Updated");
+            columns.Add(model => model.ItemType).Titled("Type");
             columns.Add(model => model.Path).Titled("Path");
-            columns.Add(model => model.Source.Name).Titled("Source name");
+            columns.Add(model => model.Created).Titled("Created");
+            columns.Add(model => model.LastTimeUpdated).Titled("Last time Updated");
         })
         .Using(GridFilterMode.Header)
+        .Id("explore-grid")
         .Empty("No data found")
         .Filterable()
         .Sortable()
         .Pageable())
 </div>
+
+<script>
+    // Triggered when grid's row is clicked. It's recommended to use event delegation in ajax scenarios.
+    document.addEventListener("rowclick", e => {
+        const element = document.getElementById("explore-grid");
+
+        const grid = new MvcGrid(element);
+        var name = e.detail.data.Name;
+        if (e.detail.data.Type == "File") {
+            var location = window.location;
+            const webParameters = new URLSearchParams(window.location.search);
+            var currentDirectory = webParameters.get('directory');
+            if (currentDirectory != undefined) {
+                currentDirectory = currentDirectory + '\\' + name;
+            }
+            else {
+                currentDirectory = name;
+            }
+            var url = location.origin + '/Explore?Id=' + webParameters.get('Id') + '&directory=' + currentDirectory;
+            location.href = url;
+        }
+        //e.detail.data - clicked row's data from columns.
+        //e.detail.grid - grid's instance.
+        //e.detail.originalEvent - original tr click event which triggered the rowclick.
+    });
+</script>

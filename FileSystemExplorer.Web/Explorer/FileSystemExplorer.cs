@@ -44,21 +44,21 @@
             }
         }
 
-        public List<Item> GetSubdirectories()
+        public List<Item> GetSubdirectories(string directory = null)
         {
             List<Item> result = new List<Item>();
-            result.AddRange(ConvertPathToItems(Directory.GetDirectories(currentPath)));
+            result.AddRange(ConvertPathToItems(Directory.GetDirectories(currentPath), ItemType.Directory));
             return result;
         }
 
-        public List<Item> GetFiles()
+        public List<Item> GetFiles(string directory = null)
         {
             List<Item> result = new List<Item>();
             result.AddRange(ConvertPathToItems(Directory.GetFiles(currentPath)));
             return result;
         }
 
-        private List<Item> ConvertPathToItems(IEnumerable<string> paths)
+        private List<Item> ConvertPathToItems(IEnumerable<string> paths, ItemType itemType = ItemType.File)
         {
             List<Item> result = new List<Item>();
 
@@ -74,8 +74,7 @@
                         Name = Path.GetFileName(path),
                         LastTimeUpdated = info.LastWriteTime,
                         Source = configuration,
-                        ItemType = ItemType.File
-                        
+                        ItemType = itemType,
                     };
                     result.Add(item);
                 }
